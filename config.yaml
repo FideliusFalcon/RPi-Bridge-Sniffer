@@ -1,5 +1,7 @@
 - config:
     filename: loot
-    interface: br0
+    iface1: et0
+    iface2: eth1
+    bridge: br0
 - counter: 0
 - Test: 42

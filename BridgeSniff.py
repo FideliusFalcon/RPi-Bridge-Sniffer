@@ -30,22 +30,27 @@ def CreateBridge(iface1,iface2,bridge):
     command = "sudo ifconfig", iface2, "up"
     os.system(command)
             
-def startSniff(fileName, number, interface):
-    os.system('sudo mkdir loot')
-    command = "sudo tcpdump -i " + str(interface) + " -w " + "loot/" + str(fileName) + "-" + str(number) + ".pcap"
-    os.system(command)
-
-def StartSniff():
-    yamlDic = readYAML("config.yaml")
-    counter = yamlDic[1]["counter"]
-    fileName = yamlDic[0]["config"]["filename"]
-    interface = yamlDic[0]["config"]["interface"]
-
+def StartSniff(fileName, number, bridge):
     counter += 1
     yamlDic[1]["counter"] = counter
     writeYAML("config.yaml", yamlDic)
 
-    startSniff(fileName, counter, interface)
+    os.system('sudo mkdir loot')
+    command = "sudo tcpdump -i " + str(bridge) + " -w " + "loot/" + str(fileName) + "-" + str(number) + ".pcap"
+    os.system(command)
+
+def CreateConfig():
+    yamlDic = readYAML("config.yaml")
+    counter = yamlDic[1]["counter"]
+    fileName = yamlDic[0]["config"]["filename"]
+    bridge = yamlDic[0]["config"]["bridge"]
+    iface1 = yamlDic[0]["config"]["iface1"]
+    iface2 = yamlDic[0]["config"]["iface2"]
+
+    return counter, filename, bridge, iface1, iface2
+    
 
 if __name__ == "__main__":
-    StartSniff()
+    counter, filename, bridge, iface1, iface2 = CreateConfig()
+    CreateBridge(iface1, iface2, bridge)
+    StartSniff(filename, counter, bridge)
