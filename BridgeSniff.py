@@ -32,6 +32,7 @@ def CreateBridge(iface1,iface2,bridge):
             
 def StartSniff(fileName, number, bridge, counter):
     counter += 1
+    yamlDic = readYAML("config.yaml")
     writeYAML("config.yaml", yamlDic)
 
     os.system('sudo mkdir loot')
