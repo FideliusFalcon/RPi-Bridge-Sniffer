@@ -30,9 +30,8 @@ def CreateBridge(iface1,iface2,bridge):
     command = "sudo ifconfig", iface2, "up"
     os.system(command)
             
-def StartSniff(fileName, number, bridge):
+def StartSniff(fileName, number, bridge, counter):
     counter += 1
-    yamlDic[1]["counter"] = counter
     writeYAML("config.yaml", yamlDic)
 
     os.system('sudo mkdir loot')
@@ -46,11 +45,12 @@ def CreateConfig():
     bridge = yamlDic[0]["config"]["bridge"]
     iface1 = yamlDic[0]["config"]["iface1"]
     iface2 = yamlDic[0]["config"]["iface2"]
+    counter = yamlDic[1]["counter"] = counter
 
-    return counter, filename, bridge, iface1, iface2
+    return counter, fileName, bridge, iface1, iface2
     
 
 if __name__ == "__main__":
     counter, filename, bridge, iface1, iface2 = CreateConfig()
     CreateBridge(iface1, iface2, bridge)
-    StartSniff(filename, counter, bridge)
+    StartSniff(filename, counter, bridge, counter)
