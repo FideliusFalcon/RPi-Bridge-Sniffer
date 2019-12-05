@@ -15,19 +15,19 @@ def writeYAML(fileName,yamlDic):
 
 def CreateBridge(iface1,iface2,bridge):
     """A function that creates a bridge from the configuration in the yaml file"""
-    command = "sudo brctl addbr", bridge
+    command = "sudo brctl addbr " + bridge
     os.system(command)
-    command = "sudo ifconfig", iface1, "0.0.0.0 down"
+    command = "sudo ifconfig " + iface1 + " 0.0.0.0 down"
     os.system(command)
-    command = "sudo ifconfig", iface2, "0.0.0.0 down"
+    command = "sudo ifconfig " + iface2 + " 0.0.0.0 down"
     os.system(command)
-    command = "sudo brctl addif", bridge, iface1, iface2
+    command = "sudo brctl addif " + bridge + " " + iface1 + " " + iface2
     os.system(command)
-    command = "sudo ifconfig", bridge, "up"
+    command = "sudo ifconfig " + bridge + " up"
     os.system(command)
-    command = "sudo ifconfig", iface1, "up"
+    command = "sudo ifconfig " + iface1 + " up"
     os.system(command)
-    command = "sudo ifconfig", iface2, "up"
+    command = "sudo ifconfig " + iface2 + " up"
     os.system(command)
             
 def StartSniff(fileName, number, bridge, counter):
