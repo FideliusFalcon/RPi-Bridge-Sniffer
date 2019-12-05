@@ -1,0 +1,13 @@
+sudo brctl addbr br0
+
+sudo ifconfig eth0 0.0.0.0 down
+sudo ifconfig eth1 0.0.0.0 down
+
+sudo brctl addif br0 eth0 eth1
+
+sudo ifconfig eth0 up
+sudo ifconfig eth1 up
+sudo ifconfig br0 up
+
+
+
