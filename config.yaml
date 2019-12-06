@@ -1,6 +1,6 @@
 - config:
     filename: loot
-    iface1: et0
+    iface1: eth0
     iface2: eth1
     bridge: br0
 - counter: 0

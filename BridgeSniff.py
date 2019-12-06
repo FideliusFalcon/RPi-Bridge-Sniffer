@@ -35,7 +35,7 @@ def StartSniff(fileName, number, bridge, counter):
     yamlDic = readYAML("config.yaml")
     writeYAML("config.yaml", yamlDic)
 
-    os.system('sudo mkdir loot')
+    os.system('mkdir loot')
     command = "sudo tcpdump -i " + str(bridge) + " -w " + "loot/" + str(fileName) + "-" + str(number) + ".pcap"
     os.system(command)
 
