@@ -53,4 +53,4 @@ def CreateConfig():
 if __name__ == "__main__":
     counter, filename, bridge, iface1, iface2 = CreateConfig()
     CreateBridge(iface1, iface2, bridge)
-    StartSniff(filename, counter bridge)
+    StartSniff(filename, counter, bridge)
