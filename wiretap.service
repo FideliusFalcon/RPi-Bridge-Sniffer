@@ -3,7 +3,7 @@ Description=Wiretap
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/python3 -u main.py
+ExecStart=/usr/bin/python3 -u BridgeSniff.py
 WorkingDirectory=/home/pi/RPi-Bridge-Sniffer
 StandardOutput=inherit
 StandardError=inherit
