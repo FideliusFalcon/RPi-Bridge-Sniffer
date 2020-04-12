@@ -31,26 +31,36 @@ def CreateBridge(iface1,iface2,bridge):
     os.system(command)
             
 def StartSniff(fileName, number, bridge):
+    """Function to start tcpdump"""
     os.system('mkdir loot')
     command = "sudo tcpdump -i " + str(bridge) + " -w " + "loot/" + str(fileName) + "-" + str(number) + ".pcap"
     os.system(command)
 
-def CreateConfig():
+def ReadConfig():
+    """This Function will read the configuration from config.yaml"""
     yamlDic = readYAML("config.yaml")
-    counter = yamlDic[1]["counter"]
+
     fileName = yamlDic[0]["config"]["filename"]
     bridge = yamlDic[0]["config"]["bridge"]
     iface1 = yamlDic[0]["config"]["iface1"]
     iface2 = yamlDic[0]["config"]["iface2"]
 
-    counter += 1
-    yamlDic[1]["counter"] = counter
-    writeYAML("config.yaml", yamlDic)
+    counter = WriteToConfig()
 
     return counter, fileName, bridge, iface1, iface2
+
+def WriteToConfig():
+    yamlDic = readYAML("config.yaml")
+
+    counter = yamlDic[1]["counter"]
+    counter += 1
+
+    yamlDic[1]["counter"] = counter
+    writeYAML("config.yaml", yamlDic)
+    return counter
     
 
 if __name__ == "__main__":
-    counter, filename, bridge, iface1, iface2 = CreateConfig()
+    counter, filename, bridge, iface1, iface2 = ReadConfig()
     CreateBridge(iface1, iface2, bridge)
     StartSniff(filename, counter, bridge)
